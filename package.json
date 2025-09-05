@@ -1,0 +1,12 @@
+{
+  "name": "auto-tests",
+  "version": "1.0.0",
+  "description": "test automation framework",
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.3.0"
+  },
+  "scripts": {
+    "test": "npx playwright test"
+  }
+}
