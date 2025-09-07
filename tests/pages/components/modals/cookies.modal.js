@@ -1,4 +1,4 @@
-import test from '@playwright/test'
+import { clickElementByDescriptionIfVisible } from '../../../helpers/actions'
 
 export default class CookiesModal {
     constructor(page) {
@@ -11,10 +11,7 @@ export default class CookiesModal {
         ]
     }
 
-    clickButtonByDescription(description) {
-        test.step(`Click ${description}`, async () => {
-            const element = this.elements.find(el => el.description === description)
-            await element.locator(this.page).click({ timeout: 10000 })
-        })
+    async clickIfVisible(description) {
+        await clickElementByDescriptionIfVisible(description, this.elements, this.page)
     }
 }

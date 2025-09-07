@@ -1,4 +1,5 @@
 import test, { expect } from '@playwright/test'
+import { clickButtonByDescription } from '../../helpers/actions'
 
 export default class Header {
     constructor(page) {
@@ -53,33 +54,24 @@ export default class Header {
     }
 
     async checkVisibilityOfHeaderElements() {
-        for (const { locator, description } of this.elements) {
-            test.step(`Check visibility of ${description}`, async () => {
-                await expect(locator(this.page)).toBeVisible({ timeout: 10000 })
-            })
+        for (const { locator } of this.elements) {
+            await expect(locator(this.page)).toBeVisible({ timeout: 10000 })
         }
     }
 
     async checkTextOfHeaderElements() {
-        for (const { locator, description, text } of this.elements) {
-            text && test.step(`Check text of ${description}`, async () => {
-                await expect(locator(this.page)).toHaveText(text)
-            })
+        for (const { locator, text } of this.elements) {
+            text && await expect(locator(this.page)).toHaveText(text)
         }
     }
 
     async checkLinksOfHeaderElements() {
-        for (const { locator, description, attribute } of this.elements) {
-            attribute && test.step(`Check link of ${description}`, async () => {
-                await expect(locator(this.page)).toHaveAttribute(attribute.name, attribute.value)
-            })
+        for (const { locator, attribute } of this.elements) {
+            attribute && await expect(locator(this.page)).toHaveAttribute(attribute.name, attribute.value)
         }
     }
 
-    async clickButtonByDescription(description) {
-        test.step(`Click ${description}`, async () => {
-            const element = this.elements.find(el => el.description === description)
-            await element.locator(this.page).click({ timeout: 10000 })
-        })
+    async click(description) {
+        await clickButtonByDescription(description, this.elements, this.page)
     }
 }

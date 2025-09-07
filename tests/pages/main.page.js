@@ -1,6 +1,6 @@
-import test, { expect } from '@playwright/test'
 import Header from './components/header'
 import CookiesModal from './components/modals/cookies.modal'
+import { checkVisibilityOfElementByDescription, clickButtonByDescription, selectOptionByDescription, setValueByDescription } from '../helpers/actions'
 
 export default class MainPage {
     constructor(page) {
@@ -74,32 +74,19 @@ export default class MainPage {
         await this.page.goto('./')
     }
 
-    async checkVisibilityOfElementByDescription(description) {
-        test.step(`Check visibility of "${description}"`, async () => {
-            const element = this.elements.find(el => el.description === description)
-            await element.locator(this.page).scrollIntoViewIfNeeded()
-            await expect(element.locator(this.page)).toBeVisible({ timeout: 10000 })
-        })
+    async checkVisibilityOf(description) {
+        await checkVisibilityOfElementByDescription(description, this.elements, this.page)
     }
 
-    async setValueByDescription(description, value) {
-        test.step(`Set value in ${description}`, async () => {
-            const element = this.elements.find(el => el.description === description)
-            await element.locator(this.page).fill(value)
-        })
+    async setValueTo(description, value) {
+        await setValueByDescription(description, value, this.elements, this.page)
     }
 
-    async selectOptionByDescription(description, option) {
-        test.step(`Select option in ${description}`, async () => {
-            const element = this.elements.find(el => el.description === description)
-            element.tagName === 'SELECT' && await element.locator(this.page).selectOption(option)
-        })
+    async selectOptionFrom(description, option) {
+        await selectOptionByDescription(description, option, this.elements, this.page)
     }
 
-    async clickButtonByDescription(description) {
-        test.step(`Click ${description}`, async () => {
-            const element = this.elements.find(el => el.description === description)
-            await element.locator(this.page).click({ timeout: 10000 })
-        })
+    async click(description) {
+        await clickButtonByDescription(description, this.elements, this.page)
     }
 }
