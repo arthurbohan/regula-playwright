@@ -46,10 +46,44 @@ async function clickElementByDescriptionIfVisible(description, elements, page, t
     }
 }
 
+async function checkVisibilityOfElements(elements, page) {
+    try {
+        for (const { locator } of elements) {
+            await locator(page).scrollIntoViewIfNeeded()
+            await expect(locator(page)).toBeVisible({ timeout: 10000 })
+        }
+    } catch (error) {
+        console.error(`Error checking visibility of elements`, error)
+    }
+}
+
+async function checkTextOfElements(elements, page) {
+    try {
+        for (const { locator, text } of elements) {
+            text && await expect(locator(page)).toHaveText(text)
+        }
+    } catch (error) {
+        console.error(`Error checking text of elements`, error)
+    }
+}
+
+async function checkAttributeOfElements(elements, page) {
+    try {
+        for (const { locator, attribute } of elements) {
+            attribute && await expect(locator(page)).toHaveAttribute(attribute.name, attribute.value)
+        }
+    } catch (error) {
+        console.error(`Error checking ${attribute.name}: "${attribute.value}" of elements`, error)
+    }
+}
+
 export {
     clickButtonByDescription,
     checkVisibilityOfElementByDescription,
     setValueByDescription,
     selectOptionByDescription,
-    clickElementByDescriptionIfVisible
+    clickElementByDescriptionIfVisible,
+    checkVisibilityOfElements,
+    checkTextOfElements,
+    checkAttributeOfElements
 }

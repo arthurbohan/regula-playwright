@@ -1,12 +1,15 @@
 import Header from './components/header'
 import CookiesModal from './components/modals/cookies.modal'
 import { checkVisibilityOfElementByDescription, clickButtonByDescription, selectOptionByDescription, setValueByDescription } from '../helpers/actions'
+import MobileAppsTab from './components/tabs/mobileApps.tab'
+import CommonPage from './common.page'
 
-export default class MainPage {
+export default class MainPage extends CommonPage {
     constructor(page) {
-        this.page = page
+        super(page)
         this.header = new Header(page)
         this.cookiesModal = new CookiesModal(page)
+        this.mobileAppsTab = new MobileAppsTab(page)
         this.elements = [
             {
                 locator: (page) => page.locator('.title', { name: "Let's Talk Business" }),
@@ -68,10 +71,6 @@ export default class MainPage {
                 description: 'Thank you'
             }
         ]
-    }
-
-    async navigate() {
-        await this.page.goto('./')
     }
 
     async checkVisibilityOf(description) {

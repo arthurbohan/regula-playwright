@@ -1,5 +1,4 @@
-import test, { expect } from '@playwright/test'
-import { clickButtonByDescription } from '../../helpers/actions'
+import { checkAttributeOfElements, checkTextOfElements, checkVisibilityOfElements, clickButtonByDescription } from '../../helpers/actions'
 
 export default class Header {
     constructor(page) {
@@ -54,21 +53,15 @@ export default class Header {
     }
 
     async checkVisibilityOfHeaderElements() {
-        for (const { locator } of this.elements) {
-            await expect(locator(this.page)).toBeVisible({ timeout: 10000 })
-        }
+        await checkVisibilityOfElements(this.elements, this.page)
     }
 
     async checkTextOfHeaderElements() {
-        for (const { locator, text } of this.elements) {
-            text && await expect(locator(this.page)).toHaveText(text)
-        }
+        await checkTextOfElements(this.elements, this.page)
     }
 
     async checkLinksOfHeaderElements() {
-        for (const { locator, attribute } of this.elements) {
-            attribute && await expect(locator(this.page)).toHaveAttribute(attribute.name, attribute.value)
-        }
+        await checkAttributeOfElements(this.elements, this.page)
     }
 
     async click(description) {

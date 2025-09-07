@@ -6,18 +6,27 @@ import Credentials from '../helpers/creadentials'
 let mainPage
 let { email } = Credentials.get()
 
-test.describe('Header functionality', () => {
+test.describe('Main page functionality', () => {
   test.beforeEach(async ({ page }) => {
     mainPage = new MainPage(page)
-    await mainPage.navigate()
+    await mainPage.navigate('./')
     await mainPage.cookiesModal.clickIfVisible('Accept all cookies button')
   })
 
-  test('Check header elements', async () => {
+  test('Check main page elements', async () => {
+    await test.step('Check title of the main page', async () => {
+      await mainPage.checkTitle('Try Regula Face SDK for Face Matching and Liveness Detection')
+    })
     await test.step('Check visibility, text and links of header elements', async () => {
       await mainPage.header.checkVisibilityOfHeaderElements()
       await mainPage.header.checkTextOfHeaderElements()
       await mainPage.header.checkLinksOfHeaderElements()
+    })
+
+    await test.step('Check visibility, text and links of mobile apps tab elements', async () => {
+      await mainPage.mobileAppsTab.checkVisibilityOfAppsButtons()
+      await mainPage.mobileAppsTab.checkTextOfAppsButtons()
+      await mainPage.mobileAppsTab.checkLinksOfAppsButtons()
     })
   })
 
@@ -40,6 +49,20 @@ test.describe('Header functionality', () => {
     })
     await test.step('Verify form submission', async () => {
       await mainPage.checkVisibilityOf('Thank you')
+    })
+  })
+
+  test('Check redirection of App Store link', async () => {
+    await test.step('Click App Store link and verify redirection', async () => {
+      await mainPage.mobileAppsTab.click('App Store link')
+      await mainPage.checkNewTabUrl('https://apps.apple.com/lv/app/regula-document-reader/id1001303920')
+    })
+  })
+
+  test('Check redirection of Google Play link', async () => {
+    await test.step('Click Google Play link and verify redirection', async () => {
+      await mainPage.mobileAppsTab.click('Google Play link')
+      await mainPage.checkNewTabUrl('https://play.google.com/store/apps/details?id=com.regula.documentreader')
     })
   })
 })
