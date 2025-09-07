@@ -64,7 +64,7 @@ export default class MainPage {
                 description: 'Privacy policy checkbox'
             },
             {
-                locator: (page) => page.locator('.underline', { name: 'Thank you' }),
+                locator: (page) => page.locator('.underline').filter({ hasText: 'Thank you' }),
                 description: 'Thank you'
             }
         ]

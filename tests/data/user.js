@@ -6,7 +6,6 @@ const user = {
     industry: 'Fintech',
     verifications: '15 000 - 40 000',
     phone: '+37533395401',
-    email: 'john.doe@example.com',
     message: 'Hello',
     country: 'Belarus'
 } 
