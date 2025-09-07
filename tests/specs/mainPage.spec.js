@@ -22,7 +22,6 @@ test.describe('Main page functionality', () => {
       await mainPage.header.checkTextOfHeaderElements()
       await mainPage.header.checkLinksOfHeaderElements()
     })
-
     await test.step('Check visibility, text and links of mobile apps tab elements', async () => {
       await mainPage.mobileAppsTab.checkVisibilityOfAppsButtons()
       await mainPage.mobileAppsTab.checkTextOfAppsButtons()

@@ -8,6 +8,6 @@ const user = {
     phone: '+37533395401',
     message: 'Hello',
     country: 'Belarus'
-} 
+}
 
 export default user
