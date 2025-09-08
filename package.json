@@ -7,7 +7,7 @@
     "@types/node": "^24.3.0"
   },
   "scripts": {
-    "ci test": "npx playwright test --headless=true",
+    "ci:test": "npx playwright test --headed",
     "test": "npx playwright test"
   }
 }
