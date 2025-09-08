@@ -4,7 +4,8 @@ export default defineConfig({
   testDir: './tests/specs',
   reporter: [['html', { open: 'never' }]],
   use: {
-    headless: false,
+    workers: process.env.CI ? 1 : undefined,
+    headless: process.env.CI ? true : false,
     baseURL: 'https://faceapi.regulaforensics.com/',
   },
   projects: [
