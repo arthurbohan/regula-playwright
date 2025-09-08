@@ -1,15 +1,14 @@
 name: Functional tests
 jobs:
   test:
+    name: Run end-to-end tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16'
-      - name: Install dependencies
-        run: npm install
-      - name: Run Playwright tests
+          node-version: lts/*
+      - name: Install playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run tests
         run: npm run test
